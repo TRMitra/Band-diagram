@@ -1,0 +1,250 @@
+#since in gamma to x only kx is varied, which means we move and plot along the kx-line, but that doesn't mean we
+#can't plot for the change in ky and kz
+import numpy as np
+import matplotlib.pyplot as plt
+hbar =1
+m=1
+a=1
+fig, (ax1,ax2,ax3,ax4)= plt.subplots(1,4,figsize=(10,7),gridspec_kw={'width_ratios':[1,1,1,1],'wspace':0})
+fig=plt.figure()
+#defining the energy for band 1
+def energy(kx,ky,kz):
+    A=(1/2)*(kx**2+ky**2+kz**2)
+    return A
+
+kx_points=np.linspace(-np.pi/a,np.pi/a,100) #creates points from -pi to pi
+e1_points=np.zeros_like(kx_points) #setting all energy values to ninitially 0
+for idx, x1 in enumerate(kx_points):
+    e1_points[idx]=energy(x1,0,0) #calculates the energy in gamma to x path
+#ax1=fig.add_axes([0,0,0.25,1.0])
+ax1.plot(kx_points,e1_points, label='1', linewidth=0.5) #plots the energy from gamma to x path
+
+#Now, second band
+#defining energy
+def energy2(kx,ky,kz):
+    B=(1/2)*((kx-2*np.pi/a)**2+ky**2+kz**2) #considering nx=-1
+    return B
+
+kxc_points=np.linspace(-np.pi/a,np.pi/a,100)
+e1c_points=np.zeros_like(kxc_points)
+#print(apoints)
+for idx, x1c in enumerate(kxc_points):
+    e1c_points[idx]=energy2(x1c,0,0)
+ax1.plot(kxc_points,e1c_points, label='2', linewidth=0.5)
+
+#repeating the same for nx=1 (3rd band)
+
+
+#Defining energy for nx=0,ny=-1,, nz=0 same for nx=0, ny-0, nz=-1 and so on
+#(fourth band)
+def energy6(kx,ky,kz):
+    F=(1/2)*(kx**2+(ky+2*np.pi/a)**2+kz**2)
+    return F
+
+kxg_points=np.linspace(-np.pi/a,np.pi/a,100)
+e1g_points=np.zeros_like(kxg_points)
+#print(apoints)
+for idx, x1g in enumerate(kxg_points):
+    e1g_points[idx]=energy6(x1g,0,0)
+ax1.plot(kxg_points,e1g_points, label='3', linewidth=0.5)
+#fourth
+def energy3(kx,ky,kz):
+    C=(1/2)*((kx+2*np.pi/a)**2+ky**2+kz**2) #considering nx=+1
+    return C
+
+kxd_points=np.linspace(-np.pi/a,np.pi/a,100)
+e1d_points=np.zeros_like(kxd_points)
+for idx, x1d in enumerate(kxd_points):
+    e1d_points[idx]=energy3(x1d,0,0)
+ax1.plot(kxd_points,e1d_points, label='4', linewidth=0.5)
+
+
+#for the energy band of X to M
+
+def energy8(kx,ky,kz):
+    AY=(1/2)*(kx**2+(ky-np.pi/a)**2+kz**2)
+    return AY
+
+ky_points=np.linspace(0,2*np.pi/a,100) #creates points from 0 to pi
+e1y_points=np.zeros_like(ky_points) #setting all energy values to initially 0
+for idx, x1y in enumerate(ky_points):
+    e1y_points[idx]=energy8(np.pi/a,x1y,0) #calculates the energy in gamma to x path
+    #ax2=fig.add_axes([0.25,0,0.25,1.0])
+ax2.plot(ky_points,e1y_points, label='1', linewidth=0.5) #plots the energy from gamma to x path
+
+#Now, second band
+#defining energy
+def energy9(kx,ky,kz):
+    BY=(1/2)*(kx**2+(ky-3*np.pi/a)**2+kz**2) #considering ny=-1
+    return BY
+
+kyc_points=np.linspace(0,2*np.pi/a,100)
+e2y_points=np.zeros_like(kyc_points)
+#print(apoints)
+for idx, y1c in enumerate(kyc_points):
+    e2y_points[idx]=energy9(np.pi/a,y1c,0)
+ax2.plot(kyc_points,e2y_points, label='2', linewidth=0.5)
+
+#repeating the same for nx=1 (3rd band)
+def energy10(kx,ky,kz):
+    CY=(1/2)*((kx)**2+(ky-np.pi/a)**2+(kz+2*np.pi/a)**2) #considering nz=+1
+    return CY
+
+kyd_points=np.linspace(0,2*np.pi/a,100)
+e3y_points=np.zeros_like(kyd_points)
+for idx, xyd in enumerate(kyd_points):
+    e3y_points[idx]=energy10(np.pi/a,xyd,0)
+ax2.plot(kyd_points,e3y_points, label='3', linewidth=0.5)
+
+
+#(fourth band)
+def energy11(kx,ky,kz):
+    FY=(1/2)*((kx)**2+(ky+np.pi/a)**2+kz**2) #ny=+1
+    return FY
+
+kyg_points=np.linspace(0,2*np.pi/a,100)
+eyg_points=np.zeros_like(kyg_points)
+#print(apoints)
+for idx, y1g in enumerate(kyg_points):
+    eyg_points[idx]=energy11(np.pi/a,y1g,0)
+ax2.plot(kyg_points,eyg_points, label='4', linewidth=0.5)
+
+
+#for the energy band of M to R
+
+def energy12(kx,ky,kz):
+    AZ=(1/2)*(kx**2+(ky)**2+(kz-2*np.pi/a)**2)
+    return AZ
+
+kz_points=np.linspace(np.pi/a,3*np.pi/a,100) #creates points from 0 to pi
+e1z_points=np.zeros_like(kz_points) #setting all energy values to initially 0
+for idx, x1z in enumerate(kz_points):
+    e1z_points[idx]=energy12(np.pi/a,np.pi/a,x1z) #calculates the energy in gamma to x path
+    #ax2=fig.add_axes([0.25,0,0.25,1.0])
+ax3.plot(kz_points,e1z_points, label='1', linewidth=0.5) #plots the energy from gamma to x path
+
+#Now, second band
+#defining energy
+
+
+#repeating the same for nx=1 (3rd band)
+def energy14(kx,ky,kz):
+    CZ=(1/2)*((kx-4*np.pi/a)**2+(ky)**2+(kz-2*np.pi/a)**2) #considering nz=+1
+    return CZ
+
+kzd_points=np.linspace(np.pi/a,3*np.pi/a,100)
+e3z_points=np.zeros_like(kzd_points)
+for idx, xzd in enumerate(kzd_points):
+    e3z_points[idx]=energy14(np.pi/a,np.pi/a,xzd)
+ax3.plot(kzd_points,e3z_points, label='2', linewidth=0.5)
+
+
+#(third band)
+def energy15(kx,ky,kz):
+    FZ=(1/2)*((kx)**2+(ky)**2+(kz-4*np.pi/a)**2) #nz=+1
+    return FZ
+
+kzg_points=np.linspace(np.pi/a,3*np.pi/a,100)
+ezg_points=np.zeros_like(kzg_points)
+#print(apoints)
+for idx, z1g in enumerate(kzg_points):
+    ezg_points[idx]=energy15(np.pi/a,np.pi/a,z1g)
+ax3.plot(kzg_points,ezg_points, label='3', linewidth=0.5)
+#fourth
+def energy13(kx,ky,kz):
+    BZ=(1/2)*((kx-4*np.pi/a)**2+(ky-2*np.pi/a)**2+(kz-4*np.pi/a)**2) #considering nx=-1,ny=-1,nz=0
+    return BZ
+
+kzc_points=np.linspace(np.pi/a,3*np.pi/a,100)
+e2z_points=np.zeros_like(kzc_points)
+#print(apoints)
+for idx, z1c in enumerate(kzc_points):
+    e2z_points[idx]=energy13(np.pi/a,np.pi/a,z1c)
+ax3.plot(kzc_points,e2z_points, label='4', linewidth=0.5)
+
+#for the energy band of R to Gamma
+
+def energy16(kx,ky,kz):
+    AW=(1/2)*((kx-4*np.pi/a)**2+(ky-4*np.pi/a)**2+(kz-4*np.pi/a)**2)
+    return AW
+
+kw_points=np.linspace(2*np.pi/a,4*np.pi/a,100) #creates points from 0 to pi
+e1w_points=np.zeros_like(kw_points) #setting all energy values to initially 0
+for idx, x1w in enumerate(kw_points):
+    e1w_points[idx]=energy16(x1w,x1w,x1w) #calculates the energy in gamma to x path
+    #ax2=fig.add_axes([0.25,0,0.25,1.0])
+ax4.plot(kw_points,e1w_points, label='1', linewidth=0.5) #plots the energy from gamma to x path
+
+#Now, fourth band
+#defining energy
+def energy17(kx,ky,kz):
+    BW=(1/2)*((kx-2*np.pi/a)**2+(ky-4*np.pi/a)**2+(kz-2*np.pi/a)**2) #considering ny=-1
+    return BW
+
+kwc_points=np.linspace(2*np.pi/a,4*np.pi/a,100)
+e2w_points=np.zeros_like(kwc_points)
+#print(apoints)
+for idx, w1c in enumerate(kwc_points):
+    e2w_points[idx]=energy17(w1c,w1c,w1c)
+ax4.plot(kwc_points,e2w_points, label='2', linewidth=0.5)
+
+#repeating the same for nx=1 (3rd band)
+def energy18(kx,ky,kz):
+    CW=(1/2)*((kx-2*np.pi/a)**2+(ky-2*np.pi/a)**2+(kz-4*np.pi/a)**2) #considering nz=+1
+    return CW
+
+kwd_points=np.linspace(2*np.pi/a,4*np.pi/a,100)
+e3w_points=np.zeros_like(kwd_points)
+for idx, xwd in enumerate(kwd_points):
+    e3w_points[idx]=energy18(xwd,xwd,xwd)
+ax4.plot(kwd_points,e3w_points, label='3', linewidth=0.5)
+
+
+#(fourth band)
+def energy19(kx,ky,kz):
+    FZ=(1/2)*((kx-2*np.pi/a)**2+(ky-2*np.pi/a)**2+(kz-2*np.pi/a)**2) #ny=+1
+    return FZ
+
+kwg_points=np.linspace(2*np.pi/a,4*np.pi/a,100)
+ewg_points=np.zeros_like(kwg_points)
+#print(apoints)
+for idx, w1g in enumerate(kwg_points):
+    ewg_points[idx]=energy19(w1g,w1g,w1g)
+ax4.plot(kwg_points,ewg_points, label='4', linewidth=0.5)
+
+
+ax1.set_xlim(0,np.pi)
+ax1.set_ylim(0,75)
+ax2.set_xlim(np.pi, 2*np.pi)
+ax2.set_ylim(0, 75)
+ax1.tick_params(left=False,labelleft=False,bottom=False,labelbottom=False)
+ax2.set_yticks([])
+ax3.set_yticks([])
+ax4.set_yticks([])
+ax1.set_xticks([])
+ax2.set_xticks([])
+ax3.set_xticks([])
+ax4.set_xticks([])
+#ax3=fig.add_axes([0.50,0,0.25,1.0])
+ax3.set_ylim(0, 75)
+#ax4=fig.add_axes([0.75,0,0.25,1.0])
+ax4.set_ylim(0, 75)
+ax3.set_xlim(2*np.pi/a,3*np.pi/a)
+#ax4=fig.add_axes([0.75,0,0.25,1.0])
+ax4.set_xlim(3*np.pi/a,4*np.pi/a)
+label=ax1.set_xlabel(r'$\Gamma$')
+ax1.xaxis.set_label_coords(0,-0.025)
+label=ax2.set_xlabel(r'$X$')
+ax2.xaxis.set_label_coords(0,-0.025)
+label=ax3.set_xlabel(r'$M$')
+ax3.xaxis.set_label_coords(0,-0.025)
+ax4.text(0,-0.045,r'R',transform=ax4.transAxes, ha="right")
+label=ax4.set_xlabel(r'$\Gamma$')
+ax4.xaxis.set_label_coords(1,-0.025)
+ax1.set_ylabel(r'$\frac{E}{\frac{\hbar^2}{ma^2}}$',fontsize=35,labelpad=2)
+ax1.legend()
+ax2.legend()
+ax3.legend()
+ax4.legend()
+plt.savefig('Band.png')
+plt.show()
